@@ -2,32 +2,16 @@ import "./App.css"
 import Heading from "./components/Heading";
 import NewItem from "./components/NewItem";
 import AllItems from "./components/AllItems";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function App() {
-  const [items, setItem] = useState([
-    {
-      item: "Go for shopping"
-    },
-    {
-      item: "Take Remy to Kip-McGrath"
-    },
-    {
-      item: "Get the t-shirt"
-    },
-    {
-      item: "Download Family guy"
-    },
-    {
-      item: "Prepare for tomorrow"
-    },
-    {
-      item: "Finish coding challenge"
-    },
-    {
-      item: "Find the tools"
-    }
-  ]);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5100").then(data => data.json()).then(result => {
+      setItems(result.data);
+    });
+  }, []);
 
   return (
     <>
